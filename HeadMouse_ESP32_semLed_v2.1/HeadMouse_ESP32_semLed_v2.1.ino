@@ -269,9 +269,8 @@ void loop() {
 
       int16_t _gx, _gy, _gz;
       mpu.getRotation(&_gx, &_gy, &_gz);
-
       vx = (_gx / 150)*fator_posi;
-      vy = (_gz / 150)*fator_posi;
+      vy = (-_gz / 150)*fator_posi;
 
       atualizarEstabilidade(vx, vy);
       
@@ -301,7 +300,6 @@ void processarLeituraIR(int leitura, bool btConectado) {
     g_valorBaseLine = g_mediaAtual;
     g_mediaAnterior = g_mediaAtual;
     Serial.print("Baseline inicializado: ");
-    Serial.println(g_valorBaseLine);
     return;
   }
   
@@ -315,7 +313,7 @@ void processarLeituraIR(int leitura, bool btConectado) {
     Serial.print(" Vel:");   Serial.print(vel, 1);
     Serial.print(" Estado:"); Serial.print(emPiscada ? "PISCADA" : "normal");
     Serial.print(" Cursor:"); Serial.print(cursorEstavel);
-     Serial.print(" Acumulado cursor:"); Serial.print(acumuladoMovimento);
+    Serial.print(" Acumulado cursor:"); Serial.print(acumuladoMovimento);
     Serial.print(" Modo:");  Serial.print(nomeModo[modoAtual]);
     Serial.print(" BT:");    Serial.println(btConectado ? "OK" : "---");
     ultimoDebug = millis();
@@ -343,16 +341,23 @@ void processarLeituraIR(int leitura, bool btConectado) {
     bool cursorOk = cursorEstavelConfirmado();
     
     if (quedaSuficiente && quedaBrusca && cursorOk) {
-      emPiscada = true;
-      tempoInicioPiscada = millis();
-      botoesAtuais = 0x01;
-      enviarReport(botoesAtuais, 0, 0);
-      Serial.println(">>> PRESS");
-      Serial.print("velocidade no momento: ");
-      Serial.println(velocidadeQueda);
-      Serial.print("Leit no momento:");   Serial.println(leitura);
-      Serial.print("Media no momento:"); Serial.println(g_mediaAtual);
-      Serial.print("Base no momento:");  Serial.println(g_valorBaseLine);
+      if (quedaBrusca){
+        emPiscada = true;
+        tempoInicioPiscada = millis();
+        botoesAtuais = 0x01;
+        enviarReport(botoesAtuais, 0, 0);
+        Serial.println(">>> PRESS");
+        Serial.print("velocidade no momento: ");
+        Serial.println(velocidadeQueda);
+        Serial.print("Leit no momento:");   Serial.println(leitura);
+        Serial.print("Media no momento:"); Serial.println(g_mediaAtual);
+        Serial.print("Base no momento:");  Serial.println(g_valorBaseLine);
+        }else{
+          Serial.println("Tudo ok menos a velocidade");
+          Serial.print("velocidade no momento: ");
+          Serial.println(velocidadeQueda);
+          }
+      
     }
 
   } else {
