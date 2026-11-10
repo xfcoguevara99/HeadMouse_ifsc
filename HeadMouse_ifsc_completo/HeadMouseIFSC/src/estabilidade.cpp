@@ -1,6 +1,6 @@
 #include <Arduino.h>
-#include "estabilidade.h"
-#include "config.h""
+#include "../include/estabilidade.h"
+#include "../include/config.h""
 
 #define JANELA_ESTABILIDADE_MS  300   // Janela de observação
 #define LIMITE_MOVIMENTO     60    // Movimento máximo permitido na janela

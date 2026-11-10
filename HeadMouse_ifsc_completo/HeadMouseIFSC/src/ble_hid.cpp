@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "ble_hid.h"
+#include "../include/ble_hid.h"
 #include <BLEDevice.h>
 #include <BLEHIDDevice.h>
 #include <HIDTypes.h>

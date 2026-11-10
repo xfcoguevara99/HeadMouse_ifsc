@@ -1,8 +1,8 @@
 #include <Arduino.h>
-#include "energia.h"
+#include "../include/energia.h"
 #include <esp_wifi.h>
 #include <esp32-hal-cpu.h>
-#include "ble_hid.h"
+#include "../include/ble_hid.h"
 #define TEMPO_SEM_BT_MS 60000
 unsigned long tempoSemConexao = 0;
 static bool btConectadoAntes = false;

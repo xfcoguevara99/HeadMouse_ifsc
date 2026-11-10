@@ -1,9 +1,9 @@
 #include <Arduino.h>
-#include "piscadas.h"
+#include "../include/piscadas.h"
 
-#include "estabilidade.h"
-#include "ble_hid.h"
-#include "modos.h"
+#include "../include/estabilidade.h"
+#include "../include/ble_hid.h"
+#include "../include/modos.h"
 
 #define NUM_LEITURAS 50
 #define DELTA_PISCADA      10

@@ -1,11 +1,11 @@
 #include <Wire.h>
-#include "config.h"
-#include "modos.h"
-#include "ble_hid.h"
-#include "energia.h"
-#include "estabilidade.h"
-#include "movimento.h"
-#include "piscadas.h"
+#include "include/config.h"
+#include "include/modos.h"
+#include "include/ble_hid.h"
+#include "include/energia.h"
+#include "include/estabilidade.h"
+#include "include/movimento.h"
+#include "include/piscadas.h"
 
 void setup() {
   Serial.begin(115200);
@@ -35,7 +35,7 @@ void loop() {
   unsigned long agoraMilis = millis();
   // ── Botão BOOT: troca de modo ─────────────────────────
   if (digitalRead(PIN_BOOT) == LOW) {
-    if (agoraMilis - ultimoPressBoot > DEBOUNCE_MS) {
+    if (agoraMilis - ultimaTrocaModo > DEBOUNCE_MS) {
       ultimaTrocaModo = agoraMilis;
       avancarModo();
     }
